@@ -17,13 +17,13 @@ class TransactionList extends StatelessWidget {
                 SizedBox(height: 20),
                 Text(
                   'Nenhuma Transação Cadastrada!',
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
                 SizedBox(height: 20),
                 Container(
                     height: 200,
                     child: Image.asset(
-                      'assets/images/images/waiting.png',
+                      'marinho/assets/images/waiting.png',
                       fit: BoxFit.cover,
                     ))
               ],

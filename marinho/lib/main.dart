@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:marinho/components/transiction_list.dart';
 import 'package:marinho/models/transaction.dart';
-import 'package:intl/intl.dart';
 
 //Função main para rodar o nosso app
 main() {
@@ -17,8 +17,8 @@ class ExpensesApp extends StatelessWidget {
 
 //Criação da homepage
 class MyHomePage extends StatelessWidget {
-  String title;
-  String value;
+  final titleController = TextEditingController();
+  final valueController = TextEditingController();
 
   final _transactions = [
     Transaction(
@@ -63,58 +63,7 @@ class MyHomePage extends StatelessWidget {
                 elevation: 5,
               ),
             ),
-            Column(
-              children: _transactions.map((tr) {
-                return Card(
-                  child: Row(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.purple,
-                            width: 2,
-                          ),
-                        ),
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          'R\$' + tr.value.toStringAsFixed(2),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.purple,
-                          ),
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            tr.title,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.purple.shade900,
-                            ),
-                          ),
-                          Text(
-                            DateFormat('d MMM y').format(tr.date),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.purple.shade100,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
+            TransactionList(_transactions),
             //cria nosso card 2, fora do container. Sendo assim, os modificadores do container não se aplicam aqui
             Card(
               elevation: 5,
@@ -123,13 +72,13 @@ class MyHomePage extends StatelessWidget {
                 child: Column(
                   children: [
                     TextField(
-                      onChanged: (newValue) => title = newValue,
+                      controller: titleController,
                       decoration: InputDecoration(
                         labelText: 'Título',
                       ),
                     ),
                     TextField(
-                      onChanged: (newValue) => value = newValue,
+                      controller: valueController,
                       decoration: InputDecoration(
                         labelText: 'Valor (R\$)',
                       ),
@@ -143,8 +92,8 @@ class MyHomePage extends StatelessWidget {
                           ),
                           foregroundColor: Colors.purple,
                           onPressed: () {
-                            print(title);
-                            print(value);
+                            print(titleController.text);
+                            print(valueController.text);
                           },
                         ),
                       ],

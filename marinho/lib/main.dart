@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marinho/components/transiction_list.dart';
-import 'package:marinho/models/transaction.dart';
+import 'components/transaction_user.dart';
 
 //Função main para rodar o nosso app
 main() {
@@ -17,24 +16,6 @@ class ExpensesApp extends StatelessWidget {
 
 //Criação da homepage
 class MyHomePage extends StatelessWidget {
-  final titleController = TextEditingController();
-  final valueController = TextEditingController();
-
-  final _transactions = [
-    Transaction(
-      id: 't1',
-      title: 'Novo tênis de corrida',
-      value: 310.76,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Conta de luz',
-      value: 211.30,
-      date: DateTime.now(),
-    )
-  ];
-
   @override
   //criação do widget inicial, nossa tela
   Widget build(BuildContext context) {
@@ -63,45 +44,8 @@ class MyHomePage extends StatelessWidget {
                 elevation: 5,
               ),
             ),
-            TransactionList(_transactions),
+            TransactionUser(),
             //cria nosso card 2, fora do container. Sendo assim, os modificadores do container não se aplicam aqui
-            Card(
-              elevation: 5,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: titleController,
-                      decoration: InputDecoration(
-                        labelText: 'Título',
-                      ),
-                    ),
-                    TextField(
-                      controller: valueController,
-                      decoration: InputDecoration(
-                        labelText: 'Valor (R\$)',
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        FloatingActionButton(
-                          child: Text(
-                            'Nova Transação',
-                          ),
-                          foregroundColor: Colors.purple,
-                          onPressed: () {
-                            print(titleController.text);
-                            print(valueController.text);
-                          },
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
           ],
         ));
   }

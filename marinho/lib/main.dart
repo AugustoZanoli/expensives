@@ -1,53 +1,63 @@
 import 'package:flutter/material.dart';
-import 'package:marinho/components/transaction_form.dart';
+import 'dart:math';
 import './components/transaction_form.dart';
 import './components/transaction_list.dart';
 import 'models/transaction.dart';
-import 'dart:math';
 
-//Função main para rodar o nosso app
-main() {
-  runApp(ExpensesApp());
-}
+main() => runApp(ExpensesApp());
 
-//Criação da nossa classe principal, a qual da retorno para a homepage
 class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MyHomePage());
+    final ThemeData tema = ThemeData(fontFamily: 'Quicksand');
+
+    return MaterialApp(
+      home: MyHomePage(),
+      theme: tema.copyWith(
+        colorScheme: tema.colorScheme.copyWith(
+          primary: Colors.purple,
+          secondary: Colors.purple,
+        ),
+        textTheme: tema.textTheme.copyWith(
+          headline6: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
   }
 }
 
-//Criação da homepage
 class MyHomePage extends StatefulWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   final _transactions = [
     Transaction(
       id: 't1',
-      title: 'Novo tênis de corrida',
+      title: 'Novo Tênis de Corrida',
       value: 310.76,
       date: DateTime.now(),
     ),
     Transaction(
       id: 't2',
-      title: 'Conta de luz',
+      title: 'Conta de Luz',
       value: 211.30,
       date: DateTime.now(),
-    )
+    ),
   ];
-
-  _openTransactionFormModal(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (_) {
-          return TransactionForm(
-              onSubmit: _addTransaction); // Passa a função _addTransaction
-        });
-  }
 
   _addTransaction(String title, double value) {
     final newTransaction = Transaction(
@@ -60,39 +70,40 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _transactions.add(newTransaction);
     });
+
+    Navigator.of(context).pop();
+  }
+
+  _openTransactionFormModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return TransactionForm(onSubmit: _addTransaction);
+      },
+    );
   }
 
   @override
-  //criação do widget inicial, nossa tela
   Widget build(BuildContext context) {
-    //retorna o Scaffold para criar e definir as coisas da nossa home
     return Scaffold(
-      //cria a barra de começo de página, definindo o título da página, a "Cabeça"
       appBar: AppBar(
-        backgroundColor: Colors.purple,
-        title: Text('Despesas pessoais'),
-        actions: [
+        title: Text('Despesas Pessoais'),
+        actions: <Widget>[
           IconButton(
-              onPressed: () => _openTransactionFormModal(context),
-              icon: Icon(Icons.add)),
+            icon: Icon(Icons.add),
+            onPressed: () => _openTransactionFormModal(context),
+          ),
         ],
       ),
-      //cria o "corpo" da nossa homepage
       body: SingleChildScrollView(
         child: Column(
-          //cuida do alinhamento de tudo que irá vir no corpo por padrão
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          //usa o children como uma lista, para poder adicionar os widgets com diversos modificadores
-          children: [
-            //cria um container para receber os widgets desejados
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
             Container(
-              //define a largura do nosso container
               width: double.infinity,
-              //cria nosso card 1
               child: Card(
-                color: Colors.purple.shade400,
-                child: Text('Grafico'),
+                color: Colors.blue,
+                child: Text('Gráfico'),
                 elevation: 5,
               ),
             ),

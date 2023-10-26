@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../models/transaction.dart';
 import 'package:intl/intl.dart';
 import '../components/chart_bar.dart';
+import 'dart:math';
 
 class Chart extends StatelessWidget {
   final List<Transaction> recentTransaction;
@@ -53,8 +54,9 @@ class Chart extends StatelessWidget {
               child: ChartBar(
                   label: tr['day'].toString(),
                   value: (tr['value'] as double?) ?? 0.0,
-                  percentage:
-                      (tr['value'] as double? ?? 0.0) / _weekTotalValue),
+                  percentage: _weekTotalValue == 0
+                      ? 0
+                      : (tr['value'] as double? ?? 0.0) / _weekTotalValue),
             );
           }).toList(),
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class ChartBar extends StatelessWidget {
   final String label;
@@ -38,7 +39,9 @@ class ChartBar extends StatelessWidget {
                 ),
               ),
               FractionallySizedBox(
-                heightFactor: percentage,
+                heightFactor: percentage >= 0.0
+                    ? percentage
+                    : 0.0, // Certifique-se de que o valor seja não negativo
                 child: Container(
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,

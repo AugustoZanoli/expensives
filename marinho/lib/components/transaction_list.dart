@@ -21,12 +21,6 @@ class TransactionList extends StatelessWidget {
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 SizedBox(height: 20),
-                Container(
-                    height: 200,
-                    child: Image.asset(
-                      'marinho/assets/images/waiting.png',
-                      fit: BoxFit.cover,
-                    ))
               ],
             )
           : ListView.builder(

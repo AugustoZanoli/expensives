@@ -12,9 +12,7 @@ class TransactionForm extends StatefulWidget {
 
 class _TransactionFormState extends State<TransactionForm> {
   final _titleController = TextEditingController();
-
   final _valueController = TextEditingController();
-
   DateTime _selectedDate = DateTime.now();
 
   _submitForm() {
@@ -80,8 +78,7 @@ class _TransactionFormState extends State<TransactionForm> {
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
-                      primary: Theme.of(context)
-                          .primaryColor, // Define a cor do texto do botão.
+                      primary: Colors.red, // Use red color
                     ),
                     onPressed: _showDatePicker,
                     child: Text(
@@ -99,8 +96,10 @@ class _TransactionFormState extends State<TransactionForm> {
               children: [
                 ElevatedButton(
                   child: Text('Nova Transação'),
-                  style: TextButton.styleFrom(
-                    primary: Theme.of(context).primaryColor,
+                  style: ElevatedButton.styleFrom(
+                    primary:
+                        Colors.red, // Use red color for the button background
+                    onPrimary: Colors.white, // Use white color for the text
                   ),
                   onPressed: _submitForm,
                 ),
